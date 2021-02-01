@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
+        List<string> listE1 = new List<string>();
         /// <summary>
         /// The main method, vill handle the menues for the program
         /// </summary>
         /// <param name="args"></param>
         static void Main()
         {
+
 
             while (true)
             {
@@ -33,6 +37,7 @@ namespace SkalProj_Datastrukturer_Minne
                 {
                     case '1':
                         ExamineList();
+
                         break;
                     case '2':
                         ExamineQueue();
@@ -62,6 +67,8 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineList()
         {
+            List<string> theList = new List<string>();
+            string all;
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch statement with cases '+' and '-'
@@ -71,13 +78,95 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            bool exaineListLoop = true;
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            do
+            {
+                Console.WriteLine("\n +/- with the word you wanna add to the list. press 0 to close this menu");
+                char input = ' ';
+                string rest = "";
+                String[] strlist = null;
+                //Or I can use 
+                // string rest = all.Substring(1);
+                try
+                {
+                    all = Console.ReadLine();
+                    input = all[0];
+                    all = Regex.Replace(all, @"\s+", " ");
+                    Char[] seperator = { '+', '-', ' ' };
+                    strlist = all.Split(seperator);
 
-            //switch(nav){...}
+
+                    // I can use 
+                    // string rest = all.Substring(1);
+                    for (int i = 1; i < strlist.Length; i++)
+                    {
+                        rest += strlist[i];
+                    }
+
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+
+                switch (input)
+                {
+                    case '+':
+
+                        for (int i = 1; i < strlist.Length; i++)
+                        {
+                            theList.Add(strlist[i]);
+                        };
+
+                        foreach (String str in theList)
+                        {
+                            Console.Write(str + " ");
+                        }
+
+                        break;
+                    case '-':
+
+
+                        if (theList.Count == 0)
+                        {
+                            Console.WriteLine("this is an empty list!");
+
+                        }
+                        else if (theList.Contains(rest))
+                        {
+                            theList.Remove(rest);
+                            Console.Write($"\n The new list is:");
+
+
+                            foreach (String str in theList)
+                            {
+                                Console.Write(str + " ");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nThis word not found in the list");
+                            Console.WriteLine($"Here you can find what in this list:");
+                            foreach (String str in theList)
+                            {
+                                Console.Write(str);
+                            }
+                        }
+
+
+                        break;
+                    case '0':
+                        exaineListLoop = false;
+                        break;
+                    default:
+                        Console.WriteLine("\n +/- with the word you wanna add to the list. press 0 to close this menu");
+                        break;
+
+                }
+
+            } while (exaineListLoop);
         }
 
         /// <summary>
@@ -90,6 +179,12 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+            do
+            {
+
+            }
+            while (false);
         }
 
         /// <summary>
