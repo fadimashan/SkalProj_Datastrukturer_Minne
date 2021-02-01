@@ -6,7 +6,6 @@ namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
-        List<string> listE1 = new List<string>();
         /// <summary>
         /// The main method, vill handle the menues for the program
         /// </summary>
@@ -17,6 +16,7 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
@@ -46,7 +46,32 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineStack();
                         break;
                     case '4':
-                        CheckParanthesis();
+                        bool exit = true;
+                        do
+                        {
+
+                            Console.WriteLine("Enter text to check or 0 to return the the main menu");
+                            var str = Console.ReadLine();
+                            if (str != "0")
+                            {
+                                var correct = CheckParanthesis(str);
+                                if (correct)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("Parentheses are correct!");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Parentheses are incorrect!");
+                                    Console.ResetColor();
+                                }
+                            }else
+                            {
+                                exit = false;
+                            }
+                        } while (exit);
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -67,8 +92,7 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineList()
         {
-            List<string> theList = new List<string>();
-            string all;
+
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch statement with cases '+' and '-'
@@ -78,8 +102,10 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
-            bool exaineListLoop = true;
 
+            List<string> theList = new List<string>();
+            string all;
+            bool exaineListLoop = true;
             /* The list capacity increasing when the list count (#itmes) is more than the capacity,
              * So, once the list count is full, the capacity will increase
              * 
@@ -98,7 +124,7 @@ namespace SkalProj_Datastrukturer_Minne
                 string rest = "";
                 string removeWord = "";
                 String[] strlist = null;
-                
+
                 //Or I can use 
                 // string rest = all.Substring(1);
                 try
@@ -111,7 +137,7 @@ namespace SkalProj_Datastrukturer_Minne
                     strlist = all.Split(seperator, StringSplitOptions.None);
 
                     removeWord = all.Substring(1);
-                    removeWord = Regex.Replace(removeWord," ","") ;
+                    removeWord = Regex.Replace(removeWord, " ", "");
 
                 }
                 catch (IndexOutOfRangeException)
@@ -127,9 +153,9 @@ namespace SkalProj_Datastrukturer_Minne
                         for (int i = 1; i < strlist.Length; i++)
                         {
                             if (!string.IsNullOrEmpty(strlist[i]))
-                            { 
+                            {
                                 theList.Add(strlist[i]);
-                            } 
+                            }
                         };
 
                         foreach (String str in theList)
@@ -144,13 +170,13 @@ namespace SkalProj_Datastrukturer_Minne
 
                         if (theList.Count == 0)
                         {
-                            Console.WriteLine("this is an empty list!");
+                            Console.WriteLine("This is an empty list!");
 
                         }
                         else if (theList.Contains(removeWord))
                         {
                             theList.Remove(removeWord);
-                            Console.Write($"\n The new list is: ");
+                            Console.Write("\nThe new list is: ");
 
 
                             foreach (String str in theList)
@@ -160,11 +186,11 @@ namespace SkalProj_Datastrukturer_Minne
                         }
                         else
                         {
-                            Console.WriteLine("\nThis word not found in the list");
-                            Console.WriteLine($"Here you can find what in this list: ");
+                            Console.WriteLine("\nThis word not found in the list"
+                                + "\nHere you can find what in this list:");
                             foreach (String str in theList)
                             {
-                                Console.Write(str+ " ");
+                                Console.Write(str + " ");
                             }
                         }
 
@@ -174,7 +200,7 @@ namespace SkalProj_Datastrukturer_Minne
                         exaineListLoop = false;
                         break;
                     default:
-                        Console.WriteLine("\n +/- with the word you wanna add to the list. press 0 to close this menu");
+                        Console.WriteLine("\nUse +/- with the word you want to add to the list.\n0. Return to the main menu");
                         break;
 
                 }
@@ -193,40 +219,64 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
 
+            Stack<string> queueStack = new Stack<string>();
             Queue q = new Queue();
             bool loop = true;
             do
             {
-
-                Console.WriteLine("\nPress (1) if you want to add new person to the q\nPress (2) to expedited a person form the engueue list to move him to the dequeue list");
-                char input = ' '; 
+                Console.WriteLine("\n1. Add new person to the queue"
+                    + "\n2. Expedited the first person in the waiting list queue"
+                    + "\n3. Add person to the Stack queue"
+                    + "\n4. Expedited the last person in the wait Stack list queue"
+                    + "\n0. Return to the main menu");
+                char input = ' ';
                 try
                 {
-                    input = Console.ReadLine()[0]; 
+                    input = Console.ReadLine()[0];
                 }
-                catch (IndexOutOfRangeException) 
+                catch (IndexOutOfRangeException)
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
                 }
 
-                switch (input) {
-                     
+                switch (input)
+                {
+
                     case '1':
                         Console.Clear();
                         Console.WriteLine("Add a new person to the queue");
                         var newPer = Console.ReadLine();
-                        q.AddPerHash(newPer);
+                        q.AddPer(newPer);
                         Console.WriteLine("ICA öppnar och kön till kassan är tom");
                         q.PrintList();
                         break;
                     case '2':
                         Console.Clear();
-                        Console.WriteLine("Remove The first person from from the queue");
-                        Console.WriteLine("ICA öppnar och kön till kassan är tom");
-                        q.TestQueueHash();
+                        Console.WriteLine("Remove The first person from from the queue"
+                            + "\n\nICA öppnar och kön till kassan är tom");
+                        q.TestQueue();
                         break;
 
+                    case '3':
+                        Console.WriteLine("Add a new person to the queue");
+                        var newPerToPush = Console.ReadLine();
+                        queueStack.Push(newPerToPush);
+                        foreach (String str in queueStack)
+                        {
+                            Console.WriteLine(str);
+                        }
+
+                        break;
+
+                    case '4':
+                        queueStack.Pop();
+                        foreach (String str in queueStack)
+                        {
+                            Console.WriteLine(str);
+                        }
+
+                        break;
                     case '0':
                         loop = false;
                         break;
@@ -234,7 +284,7 @@ namespace SkalProj_Datastrukturer_Minne
 
                         break;
                 }
-           
+
             }
             while (loop);
         }
@@ -249,16 +299,121 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            Stack<string> queueStack = new Stack<string>();
+            bool loop = true;
+            do
+            {
+                Console.WriteLine("\n1. Push person to the Stack queue"
+                    + "\n2. Pop person in the wait Stack list queue"
+                    + "\n3. Reserve the names in the Stack list"
+                    + "\n0. Return to the main menu");
+                char input = ' ';
+                try
+                {
+                    input = Console.ReadLine()[0];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+
+                switch (input)
+                {
+
+                    case '1':
+                        Console.Clear();
+                        Console.WriteLine("Push a new person to the queue");
+                        var newPerToPush = Console.ReadLine();
+                        queueStack.Push(newPerToPush);
+                        Console.Clear();
+                        foreach (String str in queueStack)
+                        {
+                            Console.WriteLine(str);
+                        }
+
+                        break;
+                    case '2':
+                        Console.Clear();
+                        if (queueStack.Count != 0)
+                        {
+                            queueStack.Pop();
+                            foreach (String str in queueStack)
+                            {
+                                Console.WriteLine(str);
+                            }
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("The queue is empty");
+                            Console.ResetColor();
+                        }
+                        break;
+
+                    case '3':
+                        Console.Clear();
+                        if (queueStack.Count != 0)
+                        {
+                            foreach (String str in queueStack)
+                            {
+                                char[] arr = str.ToCharArray();
+                                Array.Reverse(arr);
+                                var yourString = new string(arr);
+                                Console.WriteLine(yourString);
+                            }
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("The list is empty");
+                            Console.ResetColor();
+                        }
+
+                        break;
+                    case '0':
+                        loop = false;
+                        break;
+                    default:
+
+                        break;
+                }
+
+            }
+            while (loop);
+
         }
 
-        static void CheckParanthesis()
+        static bool CheckParanthesis(string str)
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
-
+                Stack<char> listOfParanthesis = new Stack<char>();
+              
+                foreach (Char c in str)
+                {
+                    switch (c)
+                    {
+                        case ')':
+                            if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '(') return false;
+                            break;
+                        case ']':
+                            if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '[') return false;
+                        break;
+                        case '}':
+                            if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '{') return false;
+                        break;
+                        case '(': listOfParanthesis.Push(c); break;
+                        case '[': listOfParanthesis.Push(c); break;
+                        case '{': listOfParanthesis.Push(c); break;
+                    }
+                }
+                if (listOfParanthesis.Count == 0) return true; 
+                else return false;
         }
 
     }

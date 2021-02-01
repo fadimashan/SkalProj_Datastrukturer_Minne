@@ -15,7 +15,7 @@ namespace SkalProj_Datastrukturer_Minne
            
         }
 
-        public void AddPerHash(string str)
+        public void AddPer(string str)
         {
             if (!newEnqueue.ContainsKey(str))
             {
@@ -29,7 +29,7 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        public void TestQueueHash()
+        public void TestQueue()
         {
             if(enqueue.Count != 0) { 
                 newEnqueue.Add("-"+ enqueue[0],0);
@@ -46,7 +46,6 @@ namespace SkalProj_Datastrukturer_Minne
 
 
         }
-
 
         public void PrintList()
         {
