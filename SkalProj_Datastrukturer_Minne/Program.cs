@@ -80,6 +80,17 @@ namespace SkalProj_Datastrukturer_Minne
             */
             bool exaineListLoop = true;
 
+            /* The list capacity increasing when the list count (#itmes) is more than the capacity,
+             * So, once the list count is full, the capacity will increase
+             * 
+             * The list capacity increasing in double size
+             * 
+             * The list capacity increasing in stable amount (double)
+             * 
+             * Delete/remove items from a list will not decrease the capacity
+             * 
+             * Using Arraylist is better when you know how specific number of item you want to add to the array
+             */
             do
             {
                 Console.WriteLine("\n+/- with the word you wanna add to the list. press 0 to close this menu");
@@ -118,9 +129,7 @@ namespace SkalProj_Datastrukturer_Minne
                             if (!string.IsNullOrEmpty(strlist[i]))
                             { 
                                 theList.Add(strlist[i]);
-                            }
-                          
-                            
+                            } 
                         };
 
                         foreach (String str in theList)
@@ -184,11 +193,50 @@ namespace SkalProj_Datastrukturer_Minne
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
 
+            Queue q = new Queue();
+            bool loop = true;
             do
             {
 
+                Console.WriteLine("\nPress (1) if you want to add new person to the q\nPress (2) to expedited a person form the engueue list to move him to the dequeue list");
+                char input = ' '; 
+                try
+                {
+                    input = Console.ReadLine()[0]; 
+                }
+                catch (IndexOutOfRangeException) 
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+
+                switch (input) {
+                     
+                    case '1':
+                        Console.Clear();
+                        Console.WriteLine("Add a new person to the queue");
+                        var newPer = Console.ReadLine();
+                        q.AddPerHash(newPer);
+                        Console.WriteLine("ICA öppnar och kön till kassan är tom");
+                        q.PrintList();
+                        break;
+                    case '2':
+                        Console.Clear();
+                        Console.WriteLine("Remove The first person from from the queue");
+                        Console.WriteLine("ICA öppnar och kön till kassan är tom");
+                        q.TestQueueHash();
+                        break;
+
+                    case '0':
+                        loop = false;
+                        break;
+                    default:
+
+                        break;
+                }
+           
             }
-            while (false);
+            while (loop);
         }
 
         /// <summary>
