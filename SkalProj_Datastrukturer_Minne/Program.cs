@@ -82,27 +82,25 @@ namespace SkalProj_Datastrukturer_Minne
 
             do
             {
-                Console.WriteLine("\n +/- with the word you wanna add to the list. press 0 to close this menu");
+                Console.WriteLine("\n+/- with the word you wanna add to the list. press 0 to close this menu");
                 char input = ' ';
                 string rest = "";
+                string removeWord = "";
                 String[] strlist = null;
+                
                 //Or I can use 
                 // string rest = all.Substring(1);
                 try
                 {
                     all = Console.ReadLine();
                     input = all[0];
-                    all = Regex.Replace(all, @"\s+", " ");
+                    rest = all.Substring(1);
+                    rest = Regex.Replace(rest, @"\s+", " ");
                     Char[] seperator = { '+', '-', ' ' };
-                    strlist = all.Split(seperator);
+                    strlist = all.Split(seperator, StringSplitOptions.None);
 
-
-                    // I can use 
-                    // string rest = all.Substring(1);
-                    for (int i = 1; i < strlist.Length; i++)
-                    {
-                        rest += strlist[i];
-                    }
+                    removeWord = all.Substring(1);
+                    removeWord = Regex.Replace(removeWord," ","") ;
 
                 }
                 catch (IndexOutOfRangeException)
@@ -117,27 +115,33 @@ namespace SkalProj_Datastrukturer_Minne
 
                         for (int i = 1; i < strlist.Length; i++)
                         {
-                            theList.Add(strlist[i]);
+                            if (!string.IsNullOrEmpty(strlist[i]))
+                            { 
+                                theList.Add(strlist[i]);
+                            }
+                          
+                            
                         };
 
                         foreach (String str in theList)
                         {
                             Console.Write(str + " ");
                         }
+                        Console.WriteLine($"\nList Count is: {theList.Count}");
+                        Console.WriteLine($"List Capacity is: {theList.Capacity}");
 
                         break;
                     case '-':
-
 
                         if (theList.Count == 0)
                         {
                             Console.WriteLine("this is an empty list!");
 
                         }
-                        else if (theList.Contains(rest))
+                        else if (theList.Contains(removeWord))
                         {
-                            theList.Remove(rest);
-                            Console.Write($"\n The new list is:");
+                            theList.Remove(removeWord);
+                            Console.Write($"\n The new list is: ");
 
 
                             foreach (String str in theList)
@@ -148,10 +152,10 @@ namespace SkalProj_Datastrukturer_Minne
                         else
                         {
                             Console.WriteLine("\nThis word not found in the list");
-                            Console.WriteLine($"Here you can find what in this list:");
+                            Console.WriteLine($"Here you can find what in this list: ");
                             foreach (String str in theList)
                             {
-                                Console.Write(str);
+                                Console.Write(str+ " ");
                             }
                         }
 
