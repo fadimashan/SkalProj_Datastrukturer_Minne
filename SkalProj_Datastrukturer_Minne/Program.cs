@@ -125,8 +125,6 @@ namespace SkalProj_Datastrukturer_Minne
                 string removeWord = "";
                 String[] strlist = null;
 
-                //Or I can use 
-                // string rest = all.Substring(1);
                 try
                 {
                     all = Console.ReadLine();
