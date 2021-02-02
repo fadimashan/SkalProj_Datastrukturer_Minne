@@ -24,7 +24,9 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParanthesis"
                     + "\n5. To print even numbers"
-                    + "\n6. Fibonacci sequence"
+                    + "\n6. Fibonacci sequence (Övning 5: Rekursion)"
+                    + "\n7. Fibonacci sequence (Övning 6: Iteration)"
+                    + "\n8. To print even numbers (Övning 6: Iteration)"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -40,7 +42,6 @@ namespace SkalProj_Datastrukturer_Minne
                 {
                     case '1':
                         ExamineList();
-
                         break;
                     case '2':
                         ExamineQueue();
@@ -49,73 +50,19 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineStack();
                         break;
                     case '4':
-                         exit = true;
-                        do
-                        {
-
-                            Console.WriteLine("Enter text to check or 0 to return the the main menu");
-                            var str = Console.ReadLine();
-                            if (str != "0")
-                            {
-                                var correct = CheckParanthesis(str);
-                                if (correct)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("Parentheses are correct!");
-                                    Console.ResetColor();
-                                }
-                                else
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Parentheses are incorrect!");
-                                    Console.ResetColor();
-                                }
-                            }else
-                            {
-                                exit = false;
-                            }
-                        } while (exit);
+                        CheckParanthesisResult();
                         break;
-
                     case '5':
-                        exit = true;
-                        do
-                        {
-                            Console.WriteLine("Please enter some input to calculate"
-                                + "\n0. to return to the main menu");
-
-                        string inputNumber = util.read();
-                        int num1 = 0;
-                        num1 = util.paresToInt(inputNumber, num1);
-                            if (num1 != 0)
-                            {
-                                extra.R1(num1);
-                            }
-                            else
-                            {
-                                exit = false;
-                            }
-                        } while (exit);
+                        extra.Fibonaccisekvensen1();                  
                         break;
-
                     case '6':
-                         exit = true;
-                        do
-                        {
-                            Console.WriteLine("\nPlease enter some input to calculate" 
-                                + "\n0. to return to the main menu");
-                        string fInputNumber = util.read();
-                        int fnum = 0;
-                        fnum = util.paresToInt(fInputNumber, fnum);
-                            if (fnum != 0)
-                            {
-                                extra.Fibonaccisekvensen(fnum);
-                            }
-                            else
-                            {
-                                exit = false;
-                            }
-                        } while (exit);
+                        extra.RecursiveEven();
+                        break;
+                    case '7':
+                        extra.Fibonaccisekvensen();
+                        break;
+                    case '8':
+                        extra.RecursiveEven2();
                         break;
                     case '0':
                         Environment.Exit(0);
@@ -225,14 +172,12 @@ namespace SkalProj_Datastrukturer_Minne
                         else
                         {
                             Console.WriteLine("\nThis word not found in the list"
-                                + "\nHere you can find what in this list:");
+                                             +"\nHere you can find what in this list:");
                             foreach (String str in theList)
                             {
                                 Console.Write(str + " ");
                             }
                         }
-
-
                         break;
                     case '0':
                         exaineListLoop = false;
@@ -304,7 +249,6 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             Console.WriteLine(str);
                         }
-
                         break;
 
                     case '4':
@@ -313,7 +257,6 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             Console.WriteLine(str);
                         }
-
                         break;
                     case '0':
                         loop = false;
@@ -423,35 +366,68 @@ namespace SkalProj_Datastrukturer_Minne
 
         }
 
-        static bool CheckParanthesis(string str)
+        
+
+        static void CheckParanthesisResult()
+        {
+           Console.Clear();
+           bool exit = true;
+            do
+            {
+                Console.WriteLine("Enter text to check or 0 to return the the main menu");
+                var str2 = Console.ReadLine();
+                if (str2 != "0")
+                {
+                    var correct = CheckParanthesisImp(str2);
+                    if (correct)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Parentheses are correct!");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Parentheses are incorrect!");
+                        Console.ResetColor();
+                    }
+                }
+                else
+                {
+                    exit = false;
+                }
+            } while (exit);
+        }
+        static bool CheckParanthesisImp(string str)
         {
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
-                Stack<char> listOfParanthesis = new Stack<char>();
-              
-                foreach (Char c in str)
+
+            Stack<char> listOfParanthesis = new Stack<char>();
+
+            foreach (Char c in str)
+            {
+                switch (c)
                 {
-                    switch (c)
-                    {
-                        case ')':
-                            if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '(') return false;
-                            break;
-                        case ']':
-                            if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '[') return false;
+                    case ')':
+                        if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '(') return false;
                         break;
-                        case '}':
-                            if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '{') return false;
+                    case ']':
+                        if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '[') return false;
                         break;
-                        case '(': listOfParanthesis.Push(c); break;
-                        case '[': listOfParanthesis.Push(c); break;
-                        case '{': listOfParanthesis.Push(c); break;
-                    }
+                    case '}':
+                        if (listOfParanthesis.Count == 0 || listOfParanthesis.Pop() != '{') return false;
+                        break;
+                    case '(': listOfParanthesis.Push(c); break;
+                    case '[': listOfParanthesis.Push(c); break;
+                    case '{': listOfParanthesis.Push(c); break;
                 }
-                if (listOfParanthesis.Count == 0) return true; 
-                else return false;
+            }
+            if (listOfParanthesis.Count == 0) return true;
+            else return false;
         }
 
     }
