@@ -12,8 +12,9 @@ namespace SkalProj_Datastrukturer_Minne
         /// <param name="args"></param>
         static void Main()
         {
-
-
+            Extra extra = new Extra();
+            Util util = new Util();
+            bool exit = true;
             while (true)
             {
                 Console.Clear();
@@ -22,6 +23,8 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParanthesis"
+                    + "\n5. To print even numbers"
+                    + "\n6. Fibonacci sequence"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -46,7 +49,7 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineStack();
                         break;
                     case '4':
-                        bool exit = true;
+                         exit = true;
                         do
                         {
 
@@ -73,10 +76,47 @@ namespace SkalProj_Datastrukturer_Minne
                             }
                         } while (exit);
                         break;
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
+
+                    case '5':
+                        exit = true;
+                        do
+                        {
+                            Console.WriteLine("Please enter some input to calculate"
+                                + "\n0. to return to the main menu");
+
+                        string inputNumber = util.read();
+                        int num1 = 0;
+                        num1 = util.paresToInt(inputNumber, num1);
+                            if (num1 != 0)
+                            {
+                                extra.R1(num1);
+                            }
+                            else
+                            {
+                                exit = false;
+                            }
+                        } while (exit);
+                        break;
+
+                    case '6':
+                         exit = true;
+                        do
+                        {
+                            Console.WriteLine("\nPlease enter some input to calculate" 
+                                + "\n0. to return to the main menu");
+                        string fInputNumber = util.read();
+                        int fnum = 0;
+                        fnum = util.paresToInt(fInputNumber, fnum);
+                            if (fnum != 0)
+                            {
+                                extra.Fibonaccisekvensen(fnum);
+                            }
+                            else
+                            {
+                                exit = false;
+                            }
+                        } while (exit);
+                        break;
                     case '0':
                         Environment.Exit(0);
                         break;
