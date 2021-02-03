@@ -13,21 +13,19 @@ namespace SkalProj_Datastrukturer_Minne
         static void Main()
         {
             Extra extra = new Extra();
-            Util util = new Util();
-            bool exit = true;
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                    + "\n1. Examine a List"
-                    + "\n2. Examine a Queue"
-                    + "\n3. Examine a Stack"
-                    + "\n4. CheckParanthesis"
-                    + "\n5. To print even numbers"
-                    + "\n6. Fibonacci sequence (Övning 5: Rekursion)"
-                    + "\n7. Fibonacci sequence (Övning 6: Iteration)"
-                    + "\n8. To print even numbers (Övning 6: Iteration)"
-                    + "\n0. Exit the application");
+                ("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                 + "\n1. Examine a List"
+                 + "\n2. Examine a Queue"
+                 + "\n3. Examine a Stack"
+                 + "\n4. CheckParanthesis"
+                 + "\n5. Fibonacci sequence (Övning 5: Rekursion)"
+                 + "\n6. To print even numbers"
+                 + "\n7. Fibonacci sequence (Övning 6: Iteration)"
+                 + "\n8. To print even numbers (Övning 6: Iteration)"
+                 + "\n0. Exit the application").PrintLine();
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
                 {
@@ -36,7 +34,7 @@ namespace SkalProj_Datastrukturer_Minne
                 catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
                 {
                     Console.Clear();
-                    Console.WriteLine("Please enter some input!");
+                    ("Please enter some input!").PrintLine();
                 }
                 switch (input)
                 {
@@ -53,13 +51,13 @@ namespace SkalProj_Datastrukturer_Minne
                         CheckParanthesisResult();
                         break;
                     case '5':
-                        extra.Fibonaccisekvensen1();                  
+                        extra.Fibonaccisekvensen();                  
                         break;
                     case '6':
                         extra.RecursiveEven();
                         break;
                     case '7':
-                        extra.Fibonaccisekvensen();
+                        extra.Fibonaccisekvensen2();
                         break;
                     case '8':
                         extra.RecursiveEven2();
@@ -68,7 +66,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4)");
+                        ("Please enter some valid input (0, 1, 2, 3, 4)").PrintLine();
                         break;
                 }
             }
@@ -89,9 +87,9 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
-
+            Console.Clear();
             List<string> theList = new List<string>();
-            string all;
+            string inputName;
             bool exaineListLoop = true;
             /* The list capacity increasing when the list count (#itmes) is more than the capacity,
              * So, once the list count is full, the capacity will increase
@@ -106,32 +104,32 @@ namespace SkalProj_Datastrukturer_Minne
              */
             do
             {
-                Console.WriteLine("\n+/- with the word you wanna add to the list. press 0 to close this menu");
-                char input = ' ';
+                ("\n+/- with the word you wanna add to the list. press 0 to close this menu").PrintLine();
+                char fiestChar = ' ';
                 string rest = "";
                 string removeWord = "";
                 String[] strlist = null;
 
                 try
                 {
-                    all = Console.ReadLine();
-                    input = all[0];
-                    rest = all.Substring(1);
-                    rest = Regex.Replace(rest, @"\s+", " ");
+                    inputName = Console.ReadLine();
+                    fiestChar = inputName[0];
+                    rest = inputName.Substring(1);
+                    var trimmed = Regex.Replace(inputName, @"\s+", " ");
                     Char[] seperator = { '+', '-', ' ' };
-                    strlist = all.Split(seperator, StringSplitOptions.None);
+                    strlist = trimmed.Split(seperator,StringSplitOptions.None);
 
-                    removeWord = all.Substring(1);
+                    removeWord = inputName.Substring(1);
                     removeWord = Regex.Replace(removeWord, " ", "");
 
                 }
                 catch (IndexOutOfRangeException)
                 {
                     Console.Clear();
-                    Console.WriteLine("Please enter some input!");
+                    ("Please enter some input!").PrintLine();
                 }
 
-                switch (input)
+                switch (fiestChar)
                 {
                     case '+':
 
@@ -145,37 +143,37 @@ namespace SkalProj_Datastrukturer_Minne
 
                         foreach (String str in theList)
                         {
-                            Console.Write(str + " ");
+                            (str + " ").PrintLine();
                         }
-                        Console.WriteLine($"\nList Count is: {theList.Count}");
-                        Console.WriteLine($"List Capacity is: {theList.Capacity}");
+                        ($"\nList Count is: {theList.Count}").PrintLine();
+                        ($"List Capacity is: {theList.Capacity}").PrintLine();
 
                         break;
                     case '-':
 
                         if (theList.Count == 0)
                         {
-                            Console.WriteLine("This is an empty list!");
+                            "This is an empty list!".PrintLine();
 
                         }
                         else if (theList.Contains(removeWord))
                         {
                             theList.Remove(removeWord);
-                            Console.Write("\nThe new list is: ");
+                            $"\nThere is {theList.Count} persones still in the queue, names: ".PrintLine();
 
 
                             foreach (String str in theList)
                             {
-                                Console.Write(str + " ");
+                                (str + " ").PrintLine();
                             }
                         }
                         else
                         {
-                            Console.WriteLine("\nThis word not found in the list"
-                                             +"\nHere you can find what in this list:");
+                            ("\nThis word not found in the list"
+                            +"\nHere you can find what in this list:").PrintLine();
                             foreach (String str in theList)
                             {
-                                Console.Write(str + " ");
+                                (str + " ").PrintLine();
                             }
                         }
                         break;
@@ -183,7 +181,7 @@ namespace SkalProj_Datastrukturer_Minne
                         exaineListLoop = false;
                         break;
                     default:
-                        Console.WriteLine("\nUse +/- with the word you want to add to the list.\n0. Return to the main menu");
+                        ("\nUse +/- with the word you want to add to the list.\n0. Return to the main menu").PrintLine();
                         break;
 
                 }
@@ -207,11 +205,11 @@ namespace SkalProj_Datastrukturer_Minne
             bool loop = true;
             do
             {
-                Console.WriteLine("\n1. Add new person to the queue"
-                    + "\n2. Expedited the first person in the waiting list queue"
-                    + "\n3. Add person to the Stack queue"
-                    + "\n4. Expedited the last person in the wait Stack list queue"
-                    + "\n0. Return to the main menu");
+                ("\n1. Add new person to the queue"
+                + "\n2. Expedited the first person in the waiting list queue"
+                + "\n3. Add person to the Stack queue"
+                + "\n4. Expedited the last person in the wait Stack list queue"
+                + "\n0. Return to the main menu").PrintLine();
                 char input = ' ';
                 try
                 {
@@ -220,7 +218,7 @@ namespace SkalProj_Datastrukturer_Minne
                 catch (IndexOutOfRangeException)
                 {
                     Console.Clear();
-                    Console.WriteLine("Please enter some input!");
+                    ("Please enter some input!").PrintLine();
                 }
 
                 switch (input)
@@ -228,26 +226,26 @@ namespace SkalProj_Datastrukturer_Minne
 
                     case '1':
                         Console.Clear();
-                        Console.WriteLine("Add a new person to the queue");
+                        ("Add a new person to the queue").PrintLine();
                         var newPer = Console.ReadLine();
                         q.AddPer(newPer);
-                        Console.WriteLine("ICA öppnar och kön till kassan är tom");
+                        ("ICA öppnar och kön till kassan är tom").PrintLine();
                         q.PrintList();
                         break;
                     case '2':
                         Console.Clear();
-                        Console.WriteLine("Remove The first person from from the queue"
-                            + "\n\nICA öppnar och kön till kassan är tom");
+                        ("Remove The first person from from the queue"
+                        + "\n\nICA öppnar och kön till kassan är tom").PrintLine();
                         q.TestQueue();
                         break;
 
                     case '3':
-                        Console.WriteLine("Add a new person to the queue");
+                        ("Add a new person to the queue").PrintLine();
                         var newPerToPush = Console.ReadLine();
                         queueStack.Push(newPerToPush);
                         foreach (String str in queueStack)
                         {
-                            Console.WriteLine(str);
+                            str.PrintLine();
                         }
                         break;
 
@@ -255,7 +253,7 @@ namespace SkalProj_Datastrukturer_Minne
                         queueStack.Pop();
                         foreach (String str in queueStack)
                         {
-                            Console.WriteLine(str);
+                            str.PrintLine();
                         }
                         break;
                     case '0':
@@ -284,10 +282,10 @@ namespace SkalProj_Datastrukturer_Minne
             bool loop = true;
             do
             {
-                Console.WriteLine("\n1. Push person to the Stack queue"
-                    + "\n2. Pop person in the wait Stack list queue"
-                    + "\n3. Reserve the names in the Stack list"
-                    + "\n0. Return to the main menu");
+                ("\n1. Push person to the Stack queue"
+                + "\n2. Pop person in the wait Stack list queue"
+                + "\n3. Reserve the names in the Stack list"
+                + "\n0. Return to the main menu").PrintLine();
                 char input = ' ';
                 try
                 {
@@ -296,7 +294,7 @@ namespace SkalProj_Datastrukturer_Minne
                 catch (IndexOutOfRangeException)
                 {
                     Console.Clear();
-                    Console.WriteLine("Please enter some input!");
+                    ("Please enter some input!").PrintLine();
                 }
 
                 switch (input)
@@ -304,13 +302,13 @@ namespace SkalProj_Datastrukturer_Minne
 
                     case '1':
                         Console.Clear();
-                        Console.WriteLine("Push a new person to the queue");
+                        ("Push a new person to the queue").PrintLine();
                         var newPerToPush = Console.ReadLine();
                         queueStack.Push(newPerToPush);
                         Console.Clear();
                         foreach (String str in queueStack)
                         {
-                            Console.WriteLine(str);
+                            str.PrintLine();
                         }
 
                         break;
@@ -321,13 +319,13 @@ namespace SkalProj_Datastrukturer_Minne
                             queueStack.Pop();
                             foreach (String str in queueStack)
                             {
-                                Console.WriteLine(str);
+                                str.PrintLine();
                             }
                         }
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("The queue is empty");
+                           "The queue is empty".PrintLine();
                             Console.ResetColor();
                         }
                         break;
@@ -341,14 +339,14 @@ namespace SkalProj_Datastrukturer_Minne
                                 char[] arr = str.ToCharArray();
                                 Array.Reverse(arr);
                                 var yourString = new string(arr);
-                                Console.WriteLine(yourString);
+                                yourString.PrintLine();
                             }
                         }
                         else
                         {
                             Console.Clear();
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("The list is empty");
+                            ("The list is empty").PrintLine();
                             Console.ResetColor();
                         }
 
@@ -374,7 +372,7 @@ namespace SkalProj_Datastrukturer_Minne
            bool exit = true;
             do
             {
-                Console.WriteLine("Enter text to check or 0 to return the the main menu");
+                ("Enter text to check or 0 to return the the main menu").PrintLine();
                 var str2 = Console.ReadLine();
                 if (str2 != "0")
                 {
@@ -382,13 +380,13 @@ namespace SkalProj_Datastrukturer_Minne
                     if (correct)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Parentheses are correct!");
+                        ("Parentheses are correct!").PrintLine();
                         Console.ResetColor();
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Parentheses are incorrect!");
+                        ("Parentheses are incorrect!").PrintLine();
                         Console.ResetColor();
                     }
                 }
@@ -405,6 +403,8 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+
+            str.Print();
 
             Stack<char> listOfParanthesis = new Stack<char>();
 

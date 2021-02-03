@@ -24,7 +24,7 @@ namespace SkalProj_Datastrukturer_Minne
             }else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("This name is alrady added!");
+                ("This name is alrady added!").PrintLine();
                 Console.ResetColor();
             }
         }
@@ -40,11 +40,9 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 PrintList();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("There is no persons in the enqueue!");
+                ("There is no persons in the enqueue!").PrintLine();
                 Console.ResetColor();
             }
-
-
         }
 
         public void PrintList()
@@ -55,14 +53,14 @@ namespace SkalProj_Datastrukturer_Minne
                     if (str.Value == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"{str.Key} ställer sig i kön");
+                        ($"{str.Key} ställer sig i kön").PrintLine();
                         Console.ResetColor();
 
                     }
                     else if (str.Value == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine($"{str.Key} blir expedierad och lämnar kön");
+                        ($"{str.Key} blir expedierad och lämnar kön").PrintLine();
                         Console.ResetColor();
                     }
                 }
