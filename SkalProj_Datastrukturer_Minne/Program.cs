@@ -205,7 +205,7 @@ namespace SkalProj_Datastrukturer_Minne
             bool loop = true;
             do
             {
-                ("\n1. Add new person to the queue"
+                 ("\n1. Add new person to the queue"
                 + "\n2. Expedited the first person in the waiting list queue"
                 + "\n3. Add person to the Stack queue"
                 + "\n4. Expedited the last person in the wait Stack list queue"

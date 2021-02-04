@@ -10,10 +10,6 @@ namespace SkalProj_Datastrukturer_Minne
         public List<string> enqueue = new List<string>();
         public Dictionary<string,int> newEnqueue = new Dictionary<string,int>();
       
-        public Queue()
-        {
-           
-        }
 
         public void AddPer(string str)
         {
